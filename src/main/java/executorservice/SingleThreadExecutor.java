@@ -5,6 +5,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Running the program we can see that the same thread is reused to
+ * execute the task sequentially.
+ *
  * @author sm@creativefusion.net
  */
 class Task implements Runnable{
