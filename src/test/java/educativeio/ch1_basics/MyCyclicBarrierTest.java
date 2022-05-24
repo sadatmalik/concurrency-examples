@@ -2,8 +2,6 @@ package educativeio.ch1_basics;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class MyCyclicBarrierTest {
 
     @Test
