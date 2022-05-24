@@ -2,6 +2,7 @@ package callablesandfutures;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -35,4 +36,27 @@ public class CallableFutures {
         }
         executorService.shutdown();
     }
+}
+
+class CallableFutures2 {
+    static ExecutorService threadPool = Executors.newFixedThreadPool(2);
+
+    public static void main( String args[] ) throws Exception {
+        compute(10); // some computation
+        threadPool.shutdown();
+    }
+
+    static int compute(final int n) throws Exception {
+        Callable<Integer> computation = () -> {
+            int computationResult = 0;
+
+            // perform some computation
+
+            return computationResult;
+        };
+
+        Future<Integer> f = threadPool.submit(computation);
+        return f.get();
+    }
+
 }
