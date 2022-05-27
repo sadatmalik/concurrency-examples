@@ -12,9 +12,8 @@ import java.util.concurrent.Future;
  *
  * The completion service is a combination of a blocking queue and an executor. Tasks
  * are submitted to the queue and then the queue can be polled for completed tasks. The
- * service exposes two methods, one `poll` which returns null if no task is completed
- * or none were submitted and two `take` which blocks till a completed task is
- * available.
+ * service exposes two methods, `poll` which returns null if no task is completed
+ * or none were submitted and `take` which blocks till a completed task is available.
  *
  * @author sadatmalik
  */
