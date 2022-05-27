@@ -62,6 +62,8 @@ class TestQueue {
             for (int i = 0; i < 20; i++) {
                 try {
                     bq.enqueue(i);
+                    System.out.println(Thread.currentThread().getName() +
+                            " enqueued: " + i);
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -69,28 +71,35 @@ class TestQueue {
             }
         };
 
-        Runnable dequeue = () -> {
-            int i = 0;
-            while (i < 20) {
-                try {
-                    System.out.println(bq.dequeue());
-                    i++;
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+        class Dequeue implements Runnable {
+            @Override
+            public void run() {
+                int i = 0;
+                while (i < 10) {
+                    try {
+                        System.out.println(Thread.currentThread().getName() +
+                                " dequeued: " + bq.dequeue());
+                        i++;
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
-        };
+        }
 
-        Thread t1 = new Thread(enqueue);
-        Thread t2 = new Thread(dequeue);
+        Thread t1 = new Thread(enqueue, "t1");
+        Thread t2 = new Thread(new Dequeue(), "t2");
+        Thread t3 = new Thread(new Dequeue(), "t3");
 
         t1.start();
         t2.start();
+        t3.start();
 
         try {
             t1.join();
             t2.join();
+            t3.join();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
