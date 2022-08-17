@@ -20,6 +20,7 @@ enum Downloader {
         try {
             semaphore.acquire();
             downloadData();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
